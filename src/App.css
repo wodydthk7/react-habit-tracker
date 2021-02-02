@@ -1,38 +1,107 @@
-.App {
-  text-align: center;
+button {
+  outline: none;
+  border: 0;
+  cursor: pointer;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* navbar */
+navbar {
+  background-color:antiquewhite;
+  /* margin-bottom: 0.5em; */
+  padding: 1.5rem;
+  font-size: 2.5rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-logo {
+  color: darkgreen;
+  text-align: center;
+  margin-right: 0.3em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.navbar-count {
+  background-color:darkseagreen;
+  color: aliceblue;
+  text-align: center;
+  display: inline-block;
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  margin-left: 0.2em;
+}
+
+/* search bar */
+.searchbar {
+  display: flex;
+  margin: 1rem;
+}
+
+.searchbar-input {
+  flex: 60%;
+  height: 2em;
+  margin-right: 1em;
+}
+
+.searchbar-add {
+  flex: 1;
+  color: whitesmoke;
+  background-color: darkgreen;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* habits */
+.habit {
+  font-size: 2.5rem;
+  list-style: none;
+  padding: 0.5em;
+}
+
+.habit-count {
+  background-color:darkseagreen;
+  color: aliceblue;
+  text-align: center;
+  display: inline-block;
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  margin-left: 0.2em;
+}
+
+.habit-button {
+  font-size: 2.5rem;
+  margin: 0 0.1em;
+  background-color: transparent;
+}
+
+.habit-button:hover {
+  opacity: 0.7;
+}
+
+.habit-increase-btn {
+  color: cadetblue;
+}
+
+.habit-decrease-btn {
+  color: gold
+}
+
+.habit-trash-btn {
+  color: gray;
+}
+
+.reset-btn {
+  background-color: darkgreen;
+  color: whitesmoke;
+  width: 7rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1rem;
 }
