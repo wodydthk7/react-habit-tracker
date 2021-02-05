@@ -26,9 +26,8 @@ class App extends Component {
 
   handleAddHabit(title){
     var habits = [...this.state.habits]
-    const id = habits[habits.length - 1].id
     habits.push({
-      id: id + 1, name: title, count: 0
+      id: Date.now(), name: title, count: 0
     })
 
     this.setState({
@@ -36,23 +35,15 @@ class App extends Component {
     })
     console.log(this.state.habits)
   }
-
-  handleReset() {
-    const habits = [...this.state.habits]
-    habits.map(habit => 
-      habit.count = 0
-    )
-
-    this.setState({
-      habits: habits
-    })
-  }
-
-
+  
+  
   handleIncrement (habit) {
-    const habits = [...this.state.habits] //state를 직접 수정하지 않기 위해 만든 복제본
-    const index = habits.indexOf(habit) 
-    habits[index].count++ // 사실 이것도 habits을 직접적으로 수정해서 좋진 않다는데?
+    const habits = this.state.habits.map(item => {
+      if (item.id === habit.id) {
+        return {...habit, count : habit.count + 1}
+      } 
+      return item
+    })
 
     this.setState({
       habits: habits
@@ -60,10 +51,14 @@ class App extends Component {
   }
 
   handleDecrement (habit) {
-    const habits = [...this.state.habits]
-    const index = habits.indexOf(habit)
-    habits[index].count = (habits[index].count === 0) ? 0 : habits[index].count - 1
-    
+    const habits = this.state.habits.map(item => {
+      if (item.id === habit.id) {
+        const count = habit.count - 1
+        return { ...habit, count : count < 0 ? 0 : count}
+      }
+      return item
+    })
+
     this.setState({
       habits: habits
     })
@@ -71,6 +66,19 @@ class App extends Component {
 
   handleDelete (habit) {
     const habits = this.state.habits.filter(item => item !== habit)
+
+    this.setState({
+      habits: habits
+    })
+  }
+
+  handleReset() {
+    const habits = this.state.habits.map(item => {
+      if (item.count > 0) {
+        return {...item, count : 0}
+      }
+      return item
+    })
 
     this.setState({
       habits: habits

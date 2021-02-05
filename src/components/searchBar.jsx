@@ -1,39 +1,36 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class SearchBar extends Component {
+class SearchBar extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.handleChange = this.handleChange.bind(this)
     this.handleAddHabit = this.handleAddHabit.bind(this)
   }
 
-  state = {
-    title:""
-  }
-  
-  handleChange(e){
-    this.setState({
-      title: e.target.value
-    })
-  }
+  inputRef = React.createRef()
+  formRef = React.createRef()
 
-  handleAddHabit(){
-    this.props.onAdd(this.state.title)
+  handleAddHabit(e){
+    e.preventDefault()
+    const title = this.inputRef.current.value
+    title && this.props.onAdd(title)
+    this.formRef.current.reset()
   }
 
   render() {
     return (
-      <div className="searchbar">
+      <form 
+        className="searchbar" 
+        ref={this.formRef}
+        onSubmit={this.handleAddHabit}>
         <input 
-          type="text" 
           className="searchbar-input"
-          placeholder="Habit"
-          onChange={this.handleChange}/>
+          ref={this.inputRef}
+          type="text" 
+          placeholder="Habit"/>
         <button 
-          className="searchbar-add" 
-          onClick={this.handleAddHabit}>Add</button>
-      </div>
+          className="searchbar-add">Add</button>
+      </form>
     );
   }
 }

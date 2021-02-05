@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Habit from './habit';
 
-class Habits extends Component {
+class Habits extends PureComponent {
   constructor(props){
     super(props)
 
-    this.handleIncrement = this.handleIncrement.bind(this)
-    this.handleDecrement = this.handleDecrement.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-  }
-
-  state = {
-    habits : this.props.habits
+  
   }
 
   componentDidUpdate(prevProps) {
@@ -22,29 +16,17 @@ class Habits extends Component {
     }
   }
 
-  handleIncrement (habit) {
-    this.props.onIncrease(habit)
-  }
-
-  handleDecrement (habit) {
-    this.props.onDecrease(habit)
-  }
-
-  handleDelete (habit) {
-    this.props.onDelete(habit)
-  }
-
   render() {
     return (
       <ul>
         {
-          this.state.habits.map(habit => 
+          this.props.habits.map(habit => 
             <Habit 
               key={habit.id} 
               habit={habit}
-              onIncrease={this.handleIncrement}
-              onDecrease={this.handleDecrement}
-              onDelete={this.handleDelete}/>
+              onIncrease={this.props.onIncrease}
+              onDecrease={this.props.onDecrease}
+              onDelete={this.props.onDelete}/>
           )
         }
       </ul>
