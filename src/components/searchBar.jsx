@@ -1,38 +1,31 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 
-class SearchBar extends PureComponent {
-  constructor(props) {
-    super(props)
+const SearchBar = memo((props) => {
 
-    this.handleAddHabit = this.handleAddHabit.bind(this)
-  }
+  const inputRef = React.useRef()
+  const formRef = React.useRef()
 
-  inputRef = React.createRef()
-  formRef = React.createRef()
-
-  handleAddHabit(e){
+  const handleAddHabit = (e) => {
     e.preventDefault()
-    const title = this.inputRef.current.value
-    title && this.props.onAdd(title)
-    this.formRef.current.reset()
+    const title = inputRef.current.value
+    title && props.onAdd(title)
+    formRef.current.reset()
   }
 
-  render() {
-    return (
-      <form 
-        className="searchbar" 
-        ref={this.formRef}
-        onSubmit={this.handleAddHabit}>
-        <input 
-          className="searchbar-input"
-          ref={this.inputRef}
-          type="text" 
-          placeholder="Habit"/>
-        <button 
-          className="searchbar-add">Add</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form 
+      className="searchbar" 
+      ref={formRef}
+      onSubmit={handleAddHabit}>
+      <input 
+        className="searchbar-input"
+        ref={inputRef}
+        type="text" 
+        placeholder="Habit"/>
+      <button 
+        className="searchbar-add">Add</button>
+    </form>
+  );
+})
 
 export default SearchBar;

@@ -1,112 +1,90 @@
-import React, {Component} from 'react'
+import React, { memo, useCallback, useState } from 'react';
 import './app.css';
 import Habits from './components/habits';
 import Navbar from './components/navbar';
 import SearchBar from './components/searchBar';
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+const App = memo(() => {
+  const [habits, setHabits] = useState([
+    {id: 1, name: 'Reading', count: 0},
+    {id: 2, name: 'coding', count: 0},
+    {id: 3, name: 'running', count: 0}
+  ])
 
-    this.handleAddHabit = this.handleAddHabit.bind(this)
-    this.handleReset = this.handleReset.bind(this)
-
-    this.handleIncrement = this.handleIncrement.bind(this)
-    this.handleDecrement = this.handleDecrement.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-  }
   
-  state = {
-    habits : [
-      {id: 1, name: 'Reading', count: 0},
-      {id: 2, name: 'coding', count: 0},
-      {id: 3, name: 'running', count: 0}
-    ]
-  }
-
-  handleAddHabit(title){
-    var habits = [...this.state.habits]
-    habits.push({
+  const handleAddHabit = useCallback((title) => {
+    var habitList = [...habits]
+    habitList.push({
       id: Date.now(), name: title, count: 0
     })
 
-    this.setState({
-      habits: habits
-    })
-    console.log(this.state.habits)
-  }
+    setHabits(habitList)
+  })
   
   
-  handleIncrement (habit) {
-    const habits = this.state.habits.map(item => {
+  const handleIncrement = useCallback((habit) => {
+    const habitList = habits.map(item => {
       if (item.id === habit.id) {
         return {...habit, count : habit.count + 1}
       } 
+
       return item
     })
 
-    this.setState({
-      habits: habits
-    })
-  }
+    setHabits(habitList)
+  })
 
-  handleDecrement (habit) {
-    const habits = this.state.habits.map(item => {
+  const handleDecrement = useCallback((habit) => {
+    const habitList = habits.map(item => {
       if (item.id === habit.id) {
         const count = habit.count - 1
         return { ...habit, count : count < 0 ? 0 : count}
       }
+
       return item
     })
 
-    this.setState({
-      habits: habits
-    })
-  }
+    setHabits(habitList)
+  })
 
-  handleDelete (habit) {
-    const habits = this.state.habits.filter(item => item !== habit)
+  const handleDelete = useCallback((habit) => {
+    const habitList = habits.filter(item => item !== habit)
 
-    this.setState({
-      habits: habits
-    })
-  }
+    setHabits(habitList)
+  })
 
-  handleReset() {
-    const habits = this.state.habits.map(item => {
+  const handleReset = useCallback(() => {
+    const habitList = habits.map(item => {
       if (item.count > 0) {
         return {...item, count : 0}
       }
+
       return item
     })
 
-    this.setState({
-      habits: habits
-    })
-  }
+    setHabits(habitList)
+  })
 
-  render(){
-    var count = 0
-    this.state.habits.map(habit => 
-      count += habit.count
-    );
+  var count = 0
+  habits.map(habit => 
+    count += habit.count
+  );
 
-      return (
-        <div className="App">
-          <Navbar count={count}/>
-          <SearchBar
-            onAdd={this.handleAddHabit}/>
-          <Habits 
-            habits={this.state.habits}
-            onIncrease={this.handleIncrement}
-            onDecrease={this.handleDecrement}
-            onDelete={this.handleDelete}/>
-          <button 
-            className="reset-btn"
-            onClick={this.handleReset}>Reset all</button>
-        </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <Navbar count={count}/>
+      <SearchBar
+        onAdd={handleAddHabit}/>
+      <Habits 
+        habits={habits}
+        onIncrease={handleIncrement}
+        onDecrease={handleDecrement}
+        onDelete={handleDelete}/>
+      <button 
+        className="reset-btn"
+        onClick={handleReset}>Reset all</button>
+    </div>
+  );
+});
 
 export default App;

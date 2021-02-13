@@ -1,37 +1,21 @@
-import React, { PureComponent } from 'react';
-import Habit from './habit';
+import React, { memo } from 'react';
+import Habit from './habit'
 
-class Habits extends PureComponent {
-  constructor(props){
-    super(props)
-
-  
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.habits !== prevProps.habits) {
-      this.setState({
-        habits: this.props.habits
-      })
-    }
-  }
-
-  render() {
-    return (
-      <ul>
-        {
-          this.props.habits.map(habit => 
-            <Habit 
-              key={habit.id} 
-              habit={habit}
-              onIncrease={this.props.onIncrease}
-              onDecrease={this.props.onDecrease}
-              onDelete={this.props.onDelete}/>
-          )
-        }
-      </ul>
-    );
-  }
-}
+const Habits = memo((props) => {
+  return (
+    <ul>
+      {
+        props.habits.map(habit => 
+          <Habit 
+            key={habit.id} 
+            habit={habit}
+            onIncrease={props.onIncrease}
+            onDecrease={props.onDecrease}
+            onDelete={props.onDelete}/>
+        )
+      }
+    </ul>
+  );
+});
 
 export default Habits;
