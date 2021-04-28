@@ -9,5 +9,5 @@
 * 각 habit은 진행한 횟수를 더하고 뺄 수 있다.
 
 ## 스크린샷
-![screen shot](/imgs/screen shot.png)
+![screen shot](https://github.com/wodydthk7/react-habit-tracker/blob/master/imgs/screen%20shot.png)
 
